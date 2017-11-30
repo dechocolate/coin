@@ -1,0 +1,16 @@
+{
+  "name": "doc",
+  "version": "1.0.0",
+  "description": "apidoc",
+  "dependencies": {
+    "express": "^4.16.2",
+    "nodemailer": "^4.4.0",
+    "promise": "^8.0.1",
+    "request": "^2.83.0"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "repository": {},
+  "keywords": [],
+  "author": "dechocolate"
+}
