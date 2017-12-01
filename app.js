@@ -12,7 +12,8 @@ var nodemailer = require('nodemailer');
 // app.listen(3001);
 // console.log('api doc start !!');
 var coins = {};
-var type = ['BTC', 'ADA', 'XRP', 'ETH', 'ETC', 'QTUM', 'POWR', 'XLM', 'BCC', 'MER', 'VOX', 'EMC2', 'SHIFT'];
+// var type = ['BTC', 'ADA', 'XRP', 'ETH', 'ETC', 'QTUM', 'POWR', 'XLM', 'BCC', 'MER', 'VOX', 'EMC2', 'SHIFT'];
+var type = ['BTC'];
 
 function Coin(name, url, pre, per, max, min, now, init) {
 	this.name = name;
@@ -62,32 +63,32 @@ function updateVal(coin) {
 setInterval(function () {
 	type.forEach(function (coin) {
 		updateVal(coins[coin]).then(function (res) {
-			console.log(res.name, res.now, res.per);
+			console.log(res.name, res.now, res.per, res.min, res.max);
 						
 			if(res.init){ //메일 한번 발송되을때				
 				// 2% 상하한가 변동시 알람
-				if(res.per > coins[res.name].max){ 
-					coins[res.name].max = res.max + 2;
-					coins[res.name].min = res.min + 2;
+				if(res.per > res.max){ 
+					coins[res.name].max = Number(res.max) + 2;
+					coins[res.name].min = Number(res.min) + 2;
 					email(res.name +" up!!! "+ res.per +" "+res.now);	
 				}
-				if(res.per < coins[res.name].min){
-					coins[res.name].max = res.max - 2;
-					coins[res.name].min = res.min - 2;
+				if(res.per < res.min){
+					coins[res.name].max = Number(res.max) - 2;
+					coins[res.name].min = Number(res.min) - 2;
 					email(res.name +" down!!! "+ res.per +" "+res.now);	
 				}
 			}else{ //메일 발송 된적 없을때				
 				// 10% 상하한가 변동시 처음 알람
 				if(res.per < -10){					
 					coins[res.name].init = true;
-					coins[res.name].min = res.per - 5;				
-					coins[res.name].max = res.per + 5;
+					coins[res.name].min = Number(res.per) - 5;				
+					coins[res.name].max = Number(res.per) + 5;
 					email(res.name +" down!! "+ res.per +" "+res.now);	
 				}
 				if(res.per > 10){
 					coins[res.name].init = true;
-					coins[res.name].min = res.per - 5;				
-					coins[res.name].max = res.per + 5;
+					coins[res.name].min = Number(res.per) - 5;				
+					coins[res.name].max = Number(res.per) + 5;
 					email(res.name +" up!! "+ res.per +" "+res.now);					
 				}
 			}
