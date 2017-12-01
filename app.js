@@ -12,8 +12,8 @@ var nodemailer = require('nodemailer');
 // app.listen(3001);
 // console.log('api doc start !!');
 var coins = {};
-// var type = ['BTC', 'ADA', 'XRP', 'ETH', 'ETC', 'QTUM', 'POWR', 'XLM', 'BCC', 'MER', 'VOX', 'EMC2', 'SHIFT'];
-var type = ['BTC'];
+var type = ['BTC', 'ADA', 'XRP', 'ETH', 'ETC', 'QTUM', 'POWR', 'XLM', 'BCC', 'MER', 'VOX', 'EMC2', 'SHIFT'];
+// var type = ['BTC'];
 
 function Coin(name, url, pre, per, max, min, now, init) {
 	this.name = name;
