@@ -12,9 +12,9 @@ var nodemailer = require('nodemailer');
 // app.listen(3001);
 // console.log('api doc start !!');
 var coins = {};
-var type = ['BTC', 'ADA', 'XRP', 'ETH', 'ETC', 'QTUM', 'POWR', 'XLM', 'BCC', 'MER'];
+var type = ['BTC', 'ADA', 'XRP', 'ETH', 'ETC', 'QTUM', 'POWR', 'XLM', 'BCC', 'MER', 'VOX', 'NMR', 'EMC2', 'SHIFT'];
 
-function Coin(name, url, pre, per, max, min, now) {
+function Coin(name, url, pre, per, max, min, now, init) {
 	this.name = name;
 	this.url = url;
 	this.pre = pre;
@@ -22,11 +22,11 @@ function Coin(name, url, pre, per, max, min, now) {
 	this.max = max;
 	this.min = min;
 	this.now = now;
+	this.init = init; //메일 처음 발송여부
 }
 
-
 type.forEach(function (coin) {
-	coins[coin] = new Coin(coin, 'https://min-api.cryptocompare.com/data/price?fsym=' + coin + '&tsyms=USD,KRW', 0, 0, 0, 0, 0);
+	coins[coin] = new Coin(coin, 'https://min-api.cryptocompare.com/data/price?fsym=' + coin + '&tsyms=USD,KRW', 0, 0, 0, 0, 0, false);
 });
 
 // set init val
@@ -63,12 +63,35 @@ setInterval(function () {
 	type.forEach(function (coin) {
 		updateVal(coins[coin]).then(function (res) {
 			console.log(res.name, res.now, res.per);
-			if(res.per < -10){
-				email(res.name + " down!! " + res.per);
+						
+			if(res.init){ //메일 한번 발송되을때				
+				// 2% 상하한가 변동시 알람
+				if(res.per > res.max){ 
+					res.max = res.max + 2;
+					res.min = res.min + 2;
+					email(res.name + " up!!! " + res.per);	
+				}
+				if(res.per < res.min){
+					res.max = res.max - 2;
+					res.min = res.min - 2;
+					email(res.name + " down!!! " + res.per);	
+				}
+			}else{ //메일 발송 된적 없을때				
+				// 10% 상하한가 변동시 처음 알람
+				if(res.per < -10){					
+					res.init = true;
+					res.min = res.per - 5;				
+					res.max = res.per + 5;
+					email(res.name + " down!! " + res.per);	
+				}
+				if(res.per > 10){
+					res.init = true;
+					res.min = res.per - 5;				
+					res.max = res.per + 5;
+					email(res.name + " up!! " + res.per);					
+				}
 			}
-			if(res.per > 10){
-				email(res.name + " up!! " + res.per);
-			}
+
 		});
 	});
 }, 5000);
