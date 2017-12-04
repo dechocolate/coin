@@ -12,7 +12,7 @@ var nodemailer = require('nodemailer');
 // app.listen(3001);
 // console.log('api doc start !!');
 var coins = {};
-var type = ['BTC', 'ADA', 'XRP', 'ETH', 'ETC', 'QTUM', 'POWR', 'XLM', 'BCC', 'MER', 'VOX', 'EMC2', 'SHIFT', 'NEO', 'OMG', 'STORJ', 'KMD'];
+var type = ['BTC', 'ADA', 'XRP', 'ETH', 'ETC', 'QTUM', 'POWR', 'XLM', 'BCC', 'MER', 'VOX', 'EMC2', 'SHIFT', 'NEO', 'OMG', 'STORJ', 'KMD', 'TIX'];
 // var type = ['BTC'];
 
 function Coin(name, url, pre, per, max, min, now, init) {
