@@ -74,7 +74,7 @@ setInterval(function () {
 				}
 				if(res.per < res.min){
 					coins[res.name].max = Number(res.max) - 2;
-					coins[res.name].min = Number(res.min) - 1;
+					coins[res.name].min = Number(res.min) - 2;
 					email(res.name +" down!!! "+ res.per +" "+res.now);	
 				}
 			}else{ //메일 발송 된적 없을때				
