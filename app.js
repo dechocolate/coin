@@ -12,7 +12,7 @@ var nodemailer = require('nodemailer');
 // app.listen(3001);
 // console.log('api doc start !!');
 var coins = {};
-var type = ['BTC', 'ADA', 'XRP', 'ETH', 'ETC', 'QTUM', 'POWR', 'XLM', 'BCC', 'MER', 'VOX', 'EMC2', 'SHIFT'];
+var type = ['BTC', 'ADA', 'XRP', 'ETH', 'ETC', 'QTUM', 'POWR', 'XLM', 'BCC', 'MER', 'VOX', 'EMC2', 'SHIFT', 'NEO', 'OMG', 'STORJ', 'KMD'];
 // var type = ['BTC'];
 
 function Coin(name, url, pre, per, max, min, now, init) {
@@ -74,21 +74,21 @@ setInterval(function () {
 				}
 				if(res.per < res.min){
 					coins[res.name].max = Number(res.max) - 2;
-					coins[res.name].min = Number(res.min) - 2;
+					coins[res.name].min = Number(res.min) - 1;
 					email(res.name +" down!!! "+ res.per +" "+res.now);	
 				}
 			}else{ //메일 발송 된적 없을때				
 				// 10% 상하한가 변동시 처음 알람
-				if(res.per < -5){					
+				if(res.per < -2){					
 					coins[res.name].init = true;
-					coins[res.name].min = Number(res.per) - 5;				
-					coins[res.name].max = Number(res.per) + 5;
+					coins[res.name].min = Number(res.per) - 2;				
+					coins[res.name].max = Number(res.per) + 2;
 					email(res.name +" down!! "+ res.per +" "+res.now);	
 				}
-				if(res.per > 5){
+				if(res.per > 2){
 					coins[res.name].init = true;
-					coins[res.name].min = Number(res.per) - 5;				
-					coins[res.name].max = Number(res.per) + 5;
+					coins[res.name].min = Number(res.per) - 2;				
+					coins[res.name].max = Number(res.per) + 2;
 					email(res.name +" up!! "+ res.per +" "+res.now);					
 				}
 			}
