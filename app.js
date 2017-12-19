@@ -16,7 +16,7 @@ var coins = {};
 // 'XLM', 'BCC', 'MER', 'VOX', 'EMC2', 'SHIFT', 'NEO', 'OMG', 'STORJ', 'KMD', 'TIX', 'REP'];
 
 // var type = ['BTC', 'ADA', 'XRP', 'ETH', 'ETC', 'QTUM', 'BCC', 'KMD', 'TIX', 'EMC2', 'LSK'];
-var type = ['BTC', 'XLM', 'NEO', 'XEM', 'LSK', 'EMC2', 'ADA', 'XMR'];
+var type = ['BTC', 'XLM', 'NEO', 'XEM', 'LSK', 'XMR'];
 
 function Coin(name, url, pre, per, max, min, now, init) {
 	this.name = name;
