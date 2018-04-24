@@ -69,7 +69,7 @@ setInterval(function () {
   requestImageSize(options)
     .then(size => {
       console.log(size);
-      if (image.width !== size.width || image.height !== size.height || image.downloaded !== size.downloaded) {
+      if (image.width !== size.width || image.height !== size.height) {
         email('상장?', '<image src="https://www.bithumb.com/resources/img/comm/sp_coin.png"/>');
       } else {
         image = size;
