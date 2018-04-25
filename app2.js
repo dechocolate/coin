@@ -4,9 +4,11 @@ var app = express();
 var Promise = require('promise');
 var request = require('request');
 var nodemailer = require('nodemailer');
-
-let image = { width: 277, height: 1700, type: 'png', downloaded: 752 };
+var axios = require('axios');
 const requestImageSize = require('request-image-size');
+
+let isSent = false;
+let image = { width: 277, height: 1700, type: 'png', downloaded: 752 };
 const options = {
   url: 'https://www.bithumb.com/resources/img/comm/sp_coin.png',
   headers: {
@@ -63,8 +65,6 @@ function email(title, text) {
 
 
 
-
-
 setInterval(function () {
   requestImageSize(options)
     .then(size => {
@@ -79,3 +79,17 @@ setInterval(function () {
       email('error', err + '"https://www.bithumb.com/resources/img/comm/sp_coin.png"');
     });
 }, 1000 * 60 * 5);
+
+
+
+let init = () => {
+  setInterval(async () => {
+    let res = await axios.get('http://bithumb.cafe/wp-json/wp/v2/posts?orderby=date&categories=43&order=desc');
+    if (res.data[0].id != 26964 && !isSent) {
+      email('빗섬 : ' + res.data[0].title.rendered, res.data[0].link);
+      isSent = true;
+    };
+  }, 1000 * 3);
+}
+
+init();
