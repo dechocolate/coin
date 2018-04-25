@@ -85,9 +85,9 @@ setInterval(function () {
 let init = () => {
   setInterval(async () => {
     let res = await axios.get('http://bithumb.cafe/wp-json/wp/v2/posts?orderby=date&categories=43&order=desc');
+    console.log(res.data[0].id);
     if (res.data[0].id != 26964 && !isSent) {
       email('빗섬 : ' + res.data[0].title.rendered, res.data[0].link);
-      console.log(res.data[0].title.rendered);
       isSent = true;
     };
   }, 1000 * 3);
