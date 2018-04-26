@@ -7,7 +7,7 @@ var nodemailer = require('nodemailer');
 var axios = require('axios');
 const requestImageSize = require('request-image-size');
 
-let isSent = false;
+let recentId = 27071;
 let image = { width: 277, height: 1700, type: 'png', downloaded: 752 };
 const options = {
   url: 'https://www.bithumb.com/resources/img/comm/sp_coin.png',
@@ -84,11 +84,11 @@ setInterval(function () {
 
 let init = () => {
   setInterval(async () => {
-    let res = await axios.get('http://bithumb.cafe/wp-json/wp/v2/posts?orderby=date&categories=43&order=desc');
-    console.log(res.data[0].id);
-    if (res.data[0].id != 26964 && !isSent) {
-      email('빗섬 : ' + res.data[0].title.rendered, res.data[0].link);
-      isSent = true;
+    let res = await axios.get('http://bithumb.cafe/wp-json/wp/v2/posts?orderby=date&order=desc');
+    console.log(recentId);
+    if (recentId != res.data[0].id) {
+      recentId = res.data[0].id;
+      email('빗섬 : ' + res.data[0].title.rendered, res.data[0].link + ' // date : ' + res.data[0].date + ' // modified : ' + res.data[0].modified);
     };
   }, 1000 * 3);
 }

@@ -8,7 +8,8 @@
     "nodemailer": "^4.4.0",
     "promise": "^8.0.1",
     "request": "^2.83.0",
-    "request-image-size": "^2.1.0"
+    "request-image-size": "^2.1.0",
+    "technicalindicators": "^1.1.10"
   },
   "devDependencies": {},
   "scripts": {},
