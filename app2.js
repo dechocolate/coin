@@ -84,7 +84,7 @@ setInterval(function () {
 
 let init = () => {
   setInterval(async () => {
-    let res = await axios.get('http://bithumb.cafe/wp-json/wp/v2/posts?orderby=date&order=desc');
+    let res = await axios.get('http://bithumb.cafe/wp-json/wp/v2/posts?orderby=date&order=desc&categories=43');
     console.log(recentId);
     if (recentId != res.data[0].id) {
       recentId = res.data[0].id;
