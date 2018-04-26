@@ -7,7 +7,9 @@ var nodemailer = require('nodemailer');
 var axios = require('axios');
 const requestImageSize = require('request-image-size');
 
-let recentId = 27071;
+let recentId_b = 27071;
+let recentId_c = 27071;
+let recentId_u = 27071;
 let image = { width: 277, height: 1700, type: 'png', downloaded: 752 };
 const options = {
   url: 'https://www.bithumb.com/resources/img/comm/sp_coin.png',
@@ -83,14 +85,35 @@ setInterval(function () {
 
 
 let init = () => {
+  //빗썸
   setInterval(async () => {
     let res = await axios.get('http://bithumb.cafe/wp-json/wp/v2/posts?orderby=date&order=desc&categories=43');
-    console.log(recentId);
-    if (recentId != res.data[0].id) {
-      recentId = res.data[0].id;
+    console.log('빗썸', recentId_b);
+    if (recentId_b != res.data[0].id) {
+      recentId_b = res.data[0].id;
       email('빗섬 : ' + res.data[0].title.rendered, res.data[0].link + ' // date : ' + res.data[0].date + ' // modified : ' + res.data[0].modified);
     };
   }, 1000 * 3);
+
+  //코인원
+  setInterval(async () => {
+    let res = await axios.get('https://coinone.co.kr/api/talk/latest_notice/');
+    console.log('코인원', recentId_c);
+    if (recentId_c != res.data.id) {
+      recentId_c = res.data.id;
+      email('코인원 : ' + res.data.title, res.data.title);
+    };
+  }, 1000 * 3);  
+
+  //업비트
+  setInterval(async () => {
+    let res = await axios.get('https://api-manager.upbit.com/api/v1/notices?page=1&per_page=1');
+    console.log('업비트', recentId_u);
+    if (recentId_u != res.data.data.list[0].id) {
+      recentId_u = res.data.data.list[0].id;
+      email('업비트 : ' + res.data.data.list[0].title, ' // date : ' + res.data.data.list[0].created_at + ' // modified : ' + res.data.data.list[0].updated_at);      
+    };
+  }, 1000 * 3);    
 }
 
 init();
