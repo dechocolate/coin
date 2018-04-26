@@ -10,7 +10,7 @@ const requestImageSize = require('request-image-size');
 let recentId_b = 27071;
 let recentId_c = 27071;
 let recentId_u = 27071;
-let image = { width: 277, height: 1700, type: 'png', downloaded: 752 };
+let image = { width: 277, height: 1876, type: 'png', downloaded: 752 };
 const options = {
   url: 'https://www.bithumb.com/resources/img/comm/sp_coin.png',
   headers: {
@@ -72,8 +72,7 @@ setInterval(function () {
     .then(size => {
       console.log(size);
       if (image.width !== size.width || image.height !== size.height) {
-        email('상장?', '<image src="https://www.bithumb.com/resources/img/comm/sp_coin.png"/>');
-      } else {
+        email('상장?', size.height + '<image src="https://www.bithumb.com/resources/img/comm/sp_coin.png"/>');
         image = size;
       }
     })
@@ -93,7 +92,7 @@ let init = () => {
       recentId_b = res.data[0].id;
       email('빗섬 : ' + res.data[0].title.rendered, res.data[0].link + ' // date : ' + res.data[0].date + ' // modified : ' + res.data[0].modified);
     };
-  }, 1000 * 3);
+  }, 1000 * 2);
 
   //코인원
   setInterval(async () => {
@@ -103,7 +102,7 @@ let init = () => {
       recentId_c = res.data.id;
       email('코인원 : ' + res.data.title, res.data.title);
     };
-  }, 1000 * 3);  
+  }, 1000 * 2);
 
   //업비트
   setInterval(async () => {
@@ -111,9 +110,9 @@ let init = () => {
     console.log('업비트', recentId_u);
     if (recentId_u != res.data.data.list[0].id) {
       recentId_u = res.data.data.list[0].id;
-      email('업비트 : ' + res.data.data.list[0].title, ' // date : ' + res.data.data.list[0].created_at + ' // modified : ' + res.data.data.list[0].updated_at);      
+      email('업비트 : ' + res.data.data.list[0].title, ' // date : ' + res.data.data.list[0].created_at + ' // modified : ' + res.data.data.list[0].updated_at);
     };
-  }, 1000 * 3);    
+  }, 1000 * 2);
 }
 
 init();
