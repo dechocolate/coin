@@ -20,13 +20,13 @@ const EMA = require('technicalindicators').EMA
 
 
 
-let api = 'https://api.coindesk.com/v1/bpi/historical/close.json;
+let api = 'https://api.coindesk.com/v1/bpi/historical/close.json';
 let BTC = [];
 
 const init = async () => {
-  let res_50 = await axios.get(api+'?start=2018-03-06&end=2018-04-26');
+  let res_50 = await axios.get(api+'?start=2018-03-01&end=2018-04-30');
   for (var key in res_50.data.bpi) {
-    BTC.push(res.data.bpi[key]);
+    BTC.push(res_50.data.bpi[key]);
   }
   // let res = await axios.get(api+'?start=2018-04-06&end=2018-04-26');
 
@@ -39,7 +39,7 @@ const init = async () => {
   let ema = EMA.calculate(inputRSI);
 
   console.log(inputRSI.values.length);
-  console.log(BTC.length);
+  console.log(BTC);
   // console.log(rsi);
   console.log(ema);
   console.log('ema', ema[ema.length - 1]);

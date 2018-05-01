@@ -1,9 +1,10 @@
 {
-  "name": "doc",
+  "name": "coin",
   "version": "1.0.0",
-  "description": "apidoc",
+  "description": "coin",
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-runtime": "^6.26.0",
     "express": "^4.16.2",
     "nodemailer": "^4.4.0",
     "promise": "^8.0.1",
@@ -11,8 +12,16 @@
     "request-image-size": "^2.1.0",
     "technicalindicators": "^1.1.10"
   },
-  "devDependencies": {},
-  "scripts": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-root-import": "^5.1.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "nodemon": "^1.11.0"
+  },
+  "scripts": {
+    "start": "NODE_ENV=production ./node_modules/.bin/babel-node app.js --presets es2015"
+  },
   "repository": {},
   "keywords": [],
   "author": "dechocolate"
